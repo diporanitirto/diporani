@@ -68,18 +68,18 @@ const anggotaDewan: StrukturMember[] = Array.from({ length: 25 }).map((_, index)
 
 const agenda = [
   {
-    month: "November",
-    title: "Latihan Mingguan",
+    month: "Lorem",
+    title: "Agenda Satu",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   },
   {
-    month: "Desember",
-    title: "Penjelajahan Malam",
+    month: "Ipsum",
+    title: "Agenda Dua",
     description: "Sed do eiusmod tempor incididunt ut labore et dolore magna.",
   },
   {
-    month: "Januari",
-    title: "Kemah Bakti",
+    month: "Dolor",
+    title: "Agenda Tiga",
     description: "Ut enim ad minim veniam, quis nostrud exercitation ullamco.",
   },
 ];
@@ -90,7 +90,7 @@ const stats = [
   { label: "Amet", value: "000" },
 ];
 
-const containerClass = "w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8";
+const containerClass = "w-full mx-auto px-4 sm:px-6 lg:px-12 xl:px-16";
 
 const highlightedMateri = materiList.slice(0, 4);
 
@@ -204,7 +204,7 @@ export default function Home() {
 
       <main>
         <section className="border-b border-slate-200 bg-slate-50/60">
-          <div className={`${containerClass} grid grid-cols-1 gap-10 py-14 sm:gap-12 sm:py-20 md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] md:items-center`}>
+          <div className={`${containerClass} grid grid-cols-1 gap-10 py-12 sm:gap-12 sm:py-16 md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] md:items-center`}>
             <div className="space-y-6 sm:space-y-8">
               <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-slate-500 sm:px-4 sm:text-xs">
                 Profil DIPORANI
@@ -331,25 +331,27 @@ export default function Home() {
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore.
               </p>
             </div>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-2 max-[420px]:grid-cols-1">
               {pembina.map((person) => (
                 <div
                   key={person.name}
-                  className="flex h-full flex-col gap-4 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6"
+                  className="flex h-full flex-col gap-3 rounded-3xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5"
                 >
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex flex-1 items-center gap-4">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-slate-900 text-sm font-semibold text-white">
-                        {getInitials(person.name)}
-                      </div>
-                      <div>
-                        <p className="text-base font-semibold text-slate-900">{person.name}</p>
-                        <p className="text-sm text-slate-600">{person.role}</p>
-                      </div>
+                  <div className="flex items-start gap-3">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-slate-900 text-base font-semibold text-white">
+                      {getInitials(person.name)}
                     </div>
-                    <InstagramTag handle={person.instagram} />
+                    <div className="flex-1 space-y-1">
+                      <div className="flex items-start justify-between gap-2">
+                        <p className="text-sm font-semibold text-slate-900 sm:text-base">{person.name}</p>
+                        <div className="shrink-0">
+                          <InstagramTag handle={person.instagram} />
+                        </div>
+                      </div>
+                      <p className="text-xs uppercase tracking-[0.2em] text-slate-500 sm:text-sm">{person.role}</p>
+                    </div>
                   </div>
-                  <p className="text-sm text-slate-600">{person.note}</p>
+                  <p className="text-sm text-slate-600 sm:text-base">{person.note}</p>
                 </div>
               ))}
             </div>
@@ -371,41 +373,43 @@ export default function Home() {
                 <p className="text-center text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
                   Badan Pengurus Harian (BPH)
                 </p>
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                <div className="grid grid-cols-2 gap-3 sm:gap-4 max-[420px]:grid-cols-1">
                   {bphMembers.map((member) => (
                     <div
                       key={member.role}
-                      className="flex h-full flex-col gap-4 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6"
+                      className="flex h-full flex-col gap-3 rounded-3xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5"
                     >
-                      <div className="flex items-start justify-between gap-4">
-                        <div className="flex flex-1 items-center gap-4">
+                      <div className="flex items-center gap-3 sm:gap-4">
+                        <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-full border border-slate-200 bg-slate-50 sm:h-20 sm:w-20">
                           {member.imageSrc ? (
                             <Image
                               src={member.imageSrc}
                               alt={`Foto ${member.name}`}
                               width={80}
                               height={80}
-                              className="h-16 w-16 rounded-full border border-slate-200 object-cover sm:h-20 sm:w-20"
+                              className="h-full w-full object-cover"
                             />
                           ) : (
-                            <div className="flex h-16 w-16 items-center justify-center rounded-full border border-dashed border-slate-300 bg-slate-50 text-sm font-semibold text-slate-500 sm:h-20 sm:w-20">
+                            <span className="text-base font-semibold text-slate-500 sm:text-lg">
                               {getInitials(member.name) || member.role?.[0] || "?"}
-                            </div>
+                            </span>
                           )}
-                          <div>
-                            {member.role ? (
-                              <p className="text-sm uppercase tracking-[0.2em] text-slate-500">
-                                {member.role}
-                              </p>
-                            ) : null}
-                            <p className="text-base font-semibold text-slate-900">
-                              {member.name}
-                            </p>
-                          </div>
                         </div>
-                        <InstagramTag handle={member.instagram} />
+                        <div className="flex flex-1 flex-col justify-center gap-2">
+                          <div className="flex items-start gap-2">
+                            <p className="text-lg font-semibold text-slate-900 sm:text-xl">{member.name}</p>
+                          </div>
+                          {member.role ? (
+                            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500 sm:text-base">
+                              {member.role}
+                            </p>
+                          ) : null}
+                        </div>
+                        <div className="shrink-0 self-start">
+                          <InstagramTag handle={member.instagram} />
+                        </div>
                       </div>
-                      <p className="text-sm text-slate-600">{member.motto}</p>
+                      <p className="text-sm text-slate-600 sm:text-base">{member.motto}</p>
                     </div>
                   ))}
                 </div>
@@ -414,41 +418,36 @@ export default function Home() {
                 <p className="text-center text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
                   Anggota Dewan Ambalan
                 </p>
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 max-[420px]:grid-cols-1">
                   {anggotaDewan.map((member) => (
                     <div
                       key={member.name}
-                      className="flex h-full flex-col gap-4 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6"
+                      className="flex h-full flex-col gap-3 rounded-3xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5"
                     >
-                      <div className="flex items-start justify-between gap-4">
-                        <div className="flex flex-1 items-center gap-4">
+                      <div className="flex items-center gap-3 sm:gap-4">
+                        <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-full border border-slate-200 bg-slate-50 sm:h-20 sm:w-20">
                           {member.imageSrc ? (
                             <Image
                               src={member.imageSrc}
                               alt={`Foto ${member.name}`}
                               width={80}
                               height={80}
-                              className="h-16 w-16 rounded-full border border-slate-200 object-cover sm:h-20 sm:w-20"
+                              className="h-full w-full object-cover"
                             />
                           ) : (
-                            <div className="flex h-16 w-16 items-center justify-center rounded-full border border-dashed border-slate-300 bg-slate-50 text-sm font-semibold text-slate-500 sm:h-20 sm:w-20">
+                            <span className="text-sm font-semibold text-slate-500 sm:text-base">
                               {getInitials(member.name) || member.role?.[0] || "?"}
-                            </div>
+                            </span>
                           )}
-                          <div>
-                            {member.role ? (
-                              <p className="text-sm uppercase tracking-[0.2em] text-slate-500">
-                                {member.role}
-                              </p>
-                            ) : null}
-                            <p className="text-base font-semibold text-slate-900">
-                              {member.name}
-                            </p>
-                          </div>
                         </div>
-                        <InstagramTag handle={member.instagram} />
+                        <div className="flex flex-1 items-center gap-2">
+                          <p className="text-lg font-semibold text-slate-900 sm:text-xl">{member.name}</p>
+                        </div>
+                        <div className="shrink-0 self-start">
+                          <InstagramTag handle={member.instagram} />
+                        </div>
                       </div>
-                      <p className="text-sm text-slate-600">{member.motto}</p>
+                      <p className="text-sm text-slate-600 sm:text-base">{member.motto}</p>
                     </div>
                   ))}
                 </div>

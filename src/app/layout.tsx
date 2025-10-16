@@ -16,6 +16,27 @@ export const metadata: Metadata = {
   title: "DIPORANI Pramuka SMA Negeri 1 Kasihan",
   description:
     "Situs profil Pramuka DIPORANI SMA Negeri 1 Kasihan yang memuat pembina, struktur keanggotaan, materi, dan agenda kegiatan.",
+  icons: {
+    icon: [
+      {
+        url: "/assets/logo-diporani.png",
+        type: "image/png",
+        sizes: "any",
+      },
+    ],
+    shortcut: [
+      {
+        url: "/assets/logo-diporani.png",
+        type: "image/png",
+      },
+    ],
+    apple: [
+      {
+        url: "/assets/logo-diporani.png",
+        type: "image/png",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
