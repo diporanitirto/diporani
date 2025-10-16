@@ -150,7 +150,7 @@ export default function Home() {
                 Pramuka Penegak
               </p>
               <p className="text-base font-semibold text-slate-900">
-                DIPORANI Ambalan SMA Negeri 1 Kasihan
+                Diporani SMA Negeri 1 Kasihan
               </p>
             </div>
           </div>
@@ -210,7 +210,7 @@ export default function Home() {
                 Profil DIPORANI
               </span>
               <h1 className="text-balance text-2xl font-bold leading-snug text-slate-900 sm:text-4xl lg:text-5xl">
-                Wadah pembinaan Pramuka DIPORANI SMA Negeri 1 Kasihan.
+                Diporani SMA Negeri 1 Kasihan
               </h1>
               <p className="max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eget urna ut libero aliquet commodo sit amet vel mauris.

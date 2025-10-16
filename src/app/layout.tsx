@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "DIPORANI Pramuka SMA Negeri 1 Kasihan",
+  title: "Diporani SMA Negeri 1 Kasihan",
   description:
-    "Situs profil Pramuka DIPORANI SMA Negeri 1 Kasihan yang memuat pembina, struktur keanggotaan, materi, dan agenda kegiatan.",
+    "Profil Diporani SMA Negeri 1 Kasihan, sebuah organisasi Pramuka Penegak yang berfokus pada pengembangan karakter, keterampilan lapangan, dan pengetahuan umum bagi anggotanya.",
   icons: {
     icon: [
       {
