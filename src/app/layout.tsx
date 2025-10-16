@@ -19,20 +19,20 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: "/assets/logo-diporani.png",
+        url: "/icon.png",
         type: "image/png",
         sizes: "any",
       },
     ],
     shortcut: [
       {
-        url: "/assets/logo-diporani.png",
+        url: "/icon.png",
         type: "image/png",
       },
     ],
     apple: [
       {
-        url: "/assets/logo-diporani.png",
+        url: "/icon.png",
         type: "image/png",
       },
     ],
