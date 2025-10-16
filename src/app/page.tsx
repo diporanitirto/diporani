@@ -5,12 +5,14 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { materiList } from "@/data/materi";
+import { dokumentasiList } from "@/data/dokumentasi";
 
 const navLinks = [
   { label: "Profil", href: "#profil" },
   { label: "Pembina", href: "#pembina" },
   { label: "Struktur", href: "#struktur" },
   { label: "Materi", href: "#materi" },
+  { label: "Dokumentasi", href: "#dokumentasi" },
   { label: "Agenda", href: "#agenda" },
   { label: "Kontak", href: "#kontak" },
 ];
@@ -89,6 +91,8 @@ const stats = [
   { label: "Dolor Sit", value: "000" },
   { label: "Amet", value: "000" },
 ];
+
+const dokumentasiHighlights = dokumentasiList.slice(0, 6);
 
 const containerClass = "w-full mx-auto px-4 sm:px-6 lg:px-12 xl:px-16";
 
@@ -306,17 +310,6 @@ export default function Home() {
                   <li>Ut labore et dolore magna aliqua</li>
                 </ul>
               </div>
-              <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">
-                  Fasilitas Pendukung
-                </p>
-                <ul className="mt-3 space-y-1.5 text-sm text-slate-700 list-disc list-inside">
-                  <li>Lorem ipsum dolor sit amet</li>
-                  <li>Consectetur adipiscing elit sed</li>
-                  <li>Do eiusmod tempor incididunt</li>
-                  <li>Ut labore et dolore magna aliqua</li>
-                </ul>
-              </div>
             </div>
           </div>
         </section>
@@ -491,6 +484,61 @@ export default function Home() {
                 className="inline-flex items-center gap-2 rounded-full border border-slate-200 px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-900 hover:text-slate-900"
               >
                 Lihat semua materi
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        <section id="dokumentasi" className="border-b border-slate-200">
+          <div className={`${containerClass} space-y-8 py-16 sm:py-20`}>
+            <div className="space-y-3 text-center">
+              <h2 className="text-balance text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
+                Dokumentasi Kegiatan
+              </h2>
+              <p className="text-sm text-slate-600 sm:text-base">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {dokumentasiHighlights.map((item) => (
+                <Link
+                  key={item.slug}
+                  href={`/dokumentasi/${item.slug}`}
+                  className="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+                >
+                  <div className="relative overflow-hidden bg-slate-900 px-6 py-10 text-white">
+                    <span className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-300">
+                      Dokumentasi
+                    </span>
+                    <p className="mt-4 text-lg font-semibold text-white sm:text-xl">
+                      {item.title}
+                    </p>
+                    <p className="mt-2 text-sm text-slate-200">
+                      {item.date}
+                    </p>
+                    <div className="pointer-events-none absolute inset-0 opacity-20">
+                      <div className="absolute -top-16 right-0 h-40 w-40 rounded-full bg-white/20 blur-3xl" />
+                      <div className="absolute bottom-0 left-0 h-32 w-32 -translate-x-1/3 translate-y-1/3 rounded-full bg-white/10 blur-2xl" />
+                    </div>
+                  </div>
+                  <div className="flex flex-1 flex-col gap-3 px-6 py-5">
+                    <p className="text-sm leading-relaxed text-slate-600">
+                      {item.summary}
+                    </p>
+                    <div className="mt-auto flex items-center justify-between text-xs font-semibold uppercase tracking-[0.3em] text-slate-400 transition group-hover:text-slate-600">
+                      <span>Galeri Kegiatan</span>
+                      <span>Detail dokumentasi →</span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+            <div className="text-center">
+              <Link
+                href="/dokumentasi"
+                className="inline-flex items-center gap-2 rounded-full border border-slate-200 px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-900 hover:text-slate-900"
+              >
+                Lihat semua dokumentasi
               </Link>
             </div>
           </div>
