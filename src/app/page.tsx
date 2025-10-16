@@ -1,102 +1,561 @@
+"use client";
+
+import { useState, type SVGProps } from "react";
 import Image from "next/image";
+import Link from "next/link";
+
+import { materiList } from "@/data/materi";
+
+const navLinks = [
+  { label: "Profil", href: "#profil" },
+  { label: "Pembina", href: "#pembina" },
+  { label: "Struktur", href: "#struktur" },
+  { label: "Materi", href: "#materi" },
+  { label: "Agenda", href: "#agenda" },
+  { label: "Kontak", href: "#kontak" },
+];
+
+type Pembina = {
+  name: string;
+  role: string;
+  note: string;
+  instagram: string;
+};
+
+const pembina: Pembina[] = [
+  {
+    name: "Kak Pembina Putra",
+    role: "Pembina Penegak Putra",
+    note: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    instagram: "@loremipsum",
+  },
+  {
+    name: "Kak Pembina Putri",
+    role: "Pembina Penegak Putri",
+    note: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    instagram: "@loremipsum",
+  },
+];
+
+type StrukturMember = {
+  role?: string;
+  name: string;
+  motto: string;
+  imageSrc?: string | null;
+  instagram?: string;
+};
+
+const bphMembers: StrukturMember[] = [
+  { role: "Pradana 1", name: "Nama Pradana 1", motto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", instagram: "@loremipsum", imageSrc: null },
+  { role: "Pradana 2", name: "Nama Pradana 2", motto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", instagram: "@loremipsum", imageSrc: null },
+  { role: "Judat 1", name: "Nama Judat 1", motto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", instagram: "@loremipsum", imageSrc: null },
+  { role: "Judat 2", name: "Nama Judat 2", motto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", instagram: "@loremipsum", imageSrc: null },
+  { role: "Kerani 1", name: "Nama Kerani 1", motto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", instagram: "@loremipsum", imageSrc: null },
+  { role: "Kerani 2", name: "Nama Kerani 2", motto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", instagram: "@loremipsum", imageSrc: null },
+  { role: "Hartoko 1", name: "Nama Hartoko 1", motto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", instagram: "@loremipsum", imageSrc: null },
+  { role: "Hartoko 2", name: "Nama Hartoko 2", motto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", instagram: "@loremipsum", imageSrc: null },
+];
+
+const anggotaDewan: StrukturMember[] = Array.from({ length: 25 }).map((_, index) => {
+  const number = index + 1;
+  return {
+    name: `Nama Anggota ${number}`,
+    motto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    instagram: "@loremipsum",
+    imageSrc: null,
+  };
+});
+
+const agenda = [
+  {
+    month: "November",
+    title: "Latihan Mingguan",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  },
+  {
+    month: "Desember",
+    title: "Penjelajahan Malam",
+    description: "Sed do eiusmod tempor incididunt ut labore et dolore magna.",
+  },
+  {
+    month: "Januari",
+    title: "Kemah Bakti",
+    description: "Ut enim ad minim veniam, quis nostrud exercitation ullamco.",
+  },
+];
+
+const stats = [
+  { label: "Lorem Ipsum", value: "000+" },
+  { label: "Dolor Sit", value: "000" },
+  { label: "Amet", value: "000" },
+];
+
+const containerClass = "w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8";
+
+const highlightedMateri = materiList.slice(0, 4);
+
+const getInitials = (name: string) =>
+  name
+    .split(" ")
+    .filter(Boolean)
+    .map((word) => word[0]?.toUpperCase())
+    .slice(0, 2)
+    .join("");
+
+const InstagramIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    aria-hidden="true"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={1.5}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <rect x={4} y={4} width={16} height={16} rx={4} ry={4} />
+    <circle cx={12} cy={12} r={3.5} />
+    <circle cx={17.5} cy={6.5} r={0.8} fill="currentColor" stroke="none" />
+  </svg>
+);
+
+const InstagramTag = ({ handle }: { handle?: string }) => {
+  if (!handle) return null;
+
+  return (
+    <div className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-600">
+      <InstagramIcon className="h-3.5 w-3.5" />
+      <span>{handle}</span>
+    </div>
+  );
+};
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+  return (
+    <div className="min-h-screen bg-white text-slate-900">
+      <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/80 backdrop-blur">
+        <div className={`${containerClass} flex items-center justify-between gap-4 py-4 sm:gap-6`}>
+          <div className="flex items-center gap-3">
             <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+              src="/assets/logo-diporani.png"
+              alt="Logo DIPORANI"
+              width={48}
+              height={48}
+              className="h-12 w-12 rounded-full border border-slate-200 object-contain p-1"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            <div>
+              <p className="text-xs uppercase tracking-[0.2em] text-slate-500">
+                Pramuka Penegak
+              </p>
+              <p className="text-base font-semibold text-slate-900">
+                DIPORANI Ambalan SMA Negeri 1 Kasihan
+              </p>
+            </div>
+          </div>
+          <nav className="hidden items-center gap-6 text-sm font-medium text-slate-600 md:flex">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="transition-colors hover:text-slate-900"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+          <button
+            type="button"
+            onClick={() => setMobileNavOpen((prev) => !prev)}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-700 transition hover:border-slate-900 hover:text-slate-900 md:hidden"
+            aria-expanded={mobileNavOpen}
+            aria-label="Toggle navigation"
           >
-            Read our docs
-          </a>
+            {mobileNavOpen ? (
+              <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+                <path d="M6 6l12 12" />
+                <path d="M18 6l-12 12" />
+              </svg>
+            ) : (
+              <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+                <path d="M4 7h16" />
+                <path d="M4 12h16" />
+                <path d="M4 17h16" />
+              </svg>
+            )}
+          </button>
         </div>
+        {mobileNavOpen ? (
+          <div className={`${containerClass} flex flex-col gap-2 pb-4 md:hidden`}>
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setMobileNavOpen(false)}
+                className="rounded-full border border-slate-200 px-4 py-2 text-center text-sm font-semibold text-slate-700 transition hover:border-slate-900 hover:text-slate-900"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+        ) : null}
+      </header>
+
+      <main>
+        <section className="border-b border-slate-200 bg-slate-50/60">
+          <div className={`${containerClass} grid grid-cols-1 gap-10 py-14 sm:gap-12 sm:py-20 md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] md:items-center`}>
+            <div className="space-y-6 sm:space-y-8">
+              <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-slate-500 sm:px-4 sm:text-xs">
+                Profil DIPORANI
+              </span>
+              <h1 className="text-balance text-2xl font-bold leading-snug text-slate-900 sm:text-4xl lg:text-5xl">
+                Wadah pembinaan Pramuka DIPORANI SMA Negeri 1 Kasihan.
+              </h1>
+              <p className="max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eget urna ut libero aliquet commodo sit amet vel mauris.
+              </p>
+              <p className="max-w-2xl text-sm leading-relaxed text-slate-500">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque habitant morbi tristique senectus et netus et malesuada.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Link
+                  href="#materi"
+                  className="rounded-full bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-700"
+                >
+                  Eksplor Materi
+                </Link>
+                <Link
+                  href="#struktur"
+                  className="rounded-full border border-slate-200 px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-900 hover:text-slate-900"
+                >
+                  Lihat Struktur
+                </Link>
+              </div>
+            </div>
+            <div className="grid gap-5 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:gap-6 sm:p-8">
+              <div className="flex items-center justify-between">
+                <Image
+                  src="/assets/logo-diporani.png"
+                  alt="Logo DIPORANI"
+                  width={96}
+                  height={96}
+                  className="h-24 w-24 rounded-full border border-slate-200 object-contain p-2"
+                />
+                <Image
+                  src="/assets/logo-sma.png"
+                  alt="Logo SMA Negeri 1 Kasihan"
+                  width={80}
+                  height={80}
+                  className="h-20 w-20 rounded-full border border-slate-200 object-contain p-2"
+                />
+              </div>
+              <div className="grid gap-3 rounded-2xl border border-slate-100 bg-slate-50 px-4 py-5">
+                <p className="text-xs uppercase tracking-[0.3em] text-slate-500">
+                  Nilai Inti
+                </p>
+                <p className="text-base font-semibold text-slate-900 sm:text-lg">
+                  Lorem | Ipsum | Dolor
+                </p>
+                <p className="text-sm text-slate-600">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor.
+                </p>
+              </div>
+              <div className="grid grid-cols-3 gap-2 text-center sm:gap-3">
+                {stats.map((item) => (
+                  <div
+                    key={item.label}
+                    className="rounded-2xl border border-slate-200 bg-white px-3 py-3 text-center shadow-sm sm:px-4 sm:py-5"
+                  >
+                    <p className="text-xl font-semibold text-slate-900 sm:text-2xl">{item.value}</p>
+                    <p className="text-[0.6rem] uppercase tracking-[0.25em] text-slate-500 sm:text-xs">
+                      {item.label}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="profil" className="border-b border-slate-200">
+          <div className={`${containerClass} grid grid-cols-1 gap-10 py-16 sm:py-20 md:grid-cols-2`}>
+            <div className="space-y-5">
+              <h2 className="text-balance text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
+                Tentang DIPORANI
+              </h2>
+              <p className="text-sm leading-relaxed text-slate-600 sm:text-base">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non dui sit amet arcu
+                pulvinar dictum. Nulla facilisi. Phasellus interdum ligula vel magna aliquet, sed malesuada
+                leo aliquam.
+              </p>
+              <p className="text-sm leading-relaxed text-slate-600 sm:text-base">
+                Integer lacinia metus vitae tempus luctus. Donec viverra eros a mauris ullamcorper, vitae
+                efficitur tortor pellentesque. Cras nec mi ac sapien ultricies suscipit ut sed justo.
+              </p>
+            </div>
+            <div className="grid gap-4">
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">
+                  Fokus Pembinaan
+                </p>
+                <ul className="mt-3 space-y-1.5 text-sm text-slate-700 list-disc list-inside">
+                  <li>Lorem ipsum dolor sit amet</li>
+                  <li>Consectetur adipiscing elit sed</li>
+                  <li>Do eiusmod tempor incididunt</li>
+                  <li>Ut labore et dolore magna aliqua</li>
+                </ul>
+              </div>
+              <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">
+                  Fasilitas Pendukung
+                </p>
+                <ul className="mt-3 space-y-1.5 text-sm text-slate-700 list-disc list-inside">
+                  <li>Lorem ipsum dolor sit amet</li>
+                  <li>Consectetur adipiscing elit sed</li>
+                  <li>Do eiusmod tempor incididunt</li>
+                  <li>Ut labore et dolore magna aliqua</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="pembina" className="border-b border-slate-200 bg-slate-50/60">
+          <div className={`${containerClass} space-y-8 py-16 sm:space-y-10 sm:py-20`}>
+            <div className="space-y-3 text-center">
+              <h2 className="text-balance text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
+                Pembina DIPORANI
+              </h2>
+              <p className="text-sm text-slate-600 sm:text-base">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {pembina.map((person) => (
+                <div
+                  key={person.name}
+                  className="flex h-full flex-col gap-4 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6"
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex flex-1 items-center gap-4">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-slate-900 text-sm font-semibold text-white">
+                        {getInitials(person.name)}
+                      </div>
+                      <div>
+                        <p className="text-base font-semibold text-slate-900">{person.name}</p>
+                        <p className="text-sm text-slate-600">{person.role}</p>
+                      </div>
+                    </div>
+                    <InstagramTag handle={person.instagram} />
+                  </div>
+                  <p className="text-sm text-slate-600">{person.note}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="struktur" className="border-b border-slate-200">
+          <div className={`${containerClass} space-y-8 py-16 sm:py-20`}>
+            <div className="space-y-3 text-center">
+              <h2 className="text-balance text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
+                Struktur Keanggotaan
+              </h2>
+              <p className="text-sm text-slate-600 sm:text-base">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore.
+              </p>
+            </div>
+            <div className="space-y-10 sm:space-y-12">
+              <div className="space-y-6">
+                <p className="text-center text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
+                  Badan Pengurus Harian (BPH)
+                </p>
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                  {bphMembers.map((member) => (
+                    <div
+                      key={member.role}
+                      className="flex h-full flex-col gap-4 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6"
+                    >
+                      <div className="flex items-start justify-between gap-4">
+                        <div className="flex flex-1 items-center gap-4">
+                          {member.imageSrc ? (
+                            <Image
+                              src={member.imageSrc}
+                              alt={`Foto ${member.name}`}
+                              width={80}
+                              height={80}
+                              className="h-16 w-16 rounded-full border border-slate-200 object-cover sm:h-20 sm:w-20"
+                            />
+                          ) : (
+                            <div className="flex h-16 w-16 items-center justify-center rounded-full border border-dashed border-slate-300 bg-slate-50 text-sm font-semibold text-slate-500 sm:h-20 sm:w-20">
+                              {getInitials(member.name) || member.role?.[0] || "?"}
+                            </div>
+                          )}
+                          <div>
+                            {member.role ? (
+                              <p className="text-sm uppercase tracking-[0.2em] text-slate-500">
+                                {member.role}
+                              </p>
+                            ) : null}
+                            <p className="text-base font-semibold text-slate-900">
+                              {member.name}
+                            </p>
+                          </div>
+                        </div>
+                        <InstagramTag handle={member.instagram} />
+                      </div>
+                      <p className="text-sm text-slate-600">{member.motto}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="space-y-6">
+                <p className="text-center text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
+                  Anggota Dewan Ambalan
+                </p>
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                  {anggotaDewan.map((member) => (
+                    <div
+                      key={member.name}
+                      className="flex h-full flex-col gap-4 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6"
+                    >
+                      <div className="flex items-start justify-between gap-4">
+                        <div className="flex flex-1 items-center gap-4">
+                          {member.imageSrc ? (
+                            <Image
+                              src={member.imageSrc}
+                              alt={`Foto ${member.name}`}
+                              width={80}
+                              height={80}
+                              className="h-16 w-16 rounded-full border border-slate-200 object-cover sm:h-20 sm:w-20"
+                            />
+                          ) : (
+                            <div className="flex h-16 w-16 items-center justify-center rounded-full border border-dashed border-slate-300 bg-slate-50 text-sm font-semibold text-slate-500 sm:h-20 sm:w-20">
+                              {getInitials(member.name) || member.role?.[0] || "?"}
+                            </div>
+                          )}
+                          <div>
+                            {member.role ? (
+                              <p className="text-sm uppercase tracking-[0.2em] text-slate-500">
+                                {member.role}
+                              </p>
+                            ) : null}
+                            <p className="text-base font-semibold text-slate-900">
+                              {member.name}
+                            </p>
+                          </div>
+                        </div>
+                        <InstagramTag handle={member.instagram} />
+                      </div>
+                      <p className="text-sm text-slate-600">{member.motto}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="materi" className="border-b border-slate-200 bg-slate-50/60">
+          <div className={`${containerClass} space-y-8 py-16 sm:py-20`}>
+            <div className="space-y-3 text-center">
+              <h2 className="text-balance text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
+                Materi Latihan DIPORANI
+              </h2>
+              <p className="text-sm text-slate-600 sm:text-base">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+              {highlightedMateri.map((item) => (
+                <Link
+                  key={item.slug}
+                  href={`/materi/${item.slug}`}
+                  className="group flex h-full flex-col gap-3 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md sm:p-6"
+                >
+                  <p className="text-xs font-semibold uppercase tracking-[0.25em] text-slate-500">
+                    {item.title}
+                  </p>
+                  <p className="text-sm leading-relaxed text-slate-600">
+                    {item.shortDescription}
+                  </p>
+                  <span className="mt-auto text-sm font-semibold text-slate-900 group-hover:text-slate-600">
+                    Baca selengkapnya -&gt;
+                  </span>
+                </Link>
+              ))}
+            </div>
+            <div className="text-center">
+              <Link
+                href="/materi"
+                className="inline-flex items-center gap-2 rounded-full border border-slate-200 px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-900 hover:text-slate-900"
+              >
+                Lihat semua materi
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        <section id="agenda" className="border-b border-slate-200">
+          <div className={`${containerClass} space-y-8 py-16 sm:py-20`}>
+            <div className="space-y-3 text-center">
+              <h2 className="text-balance text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
+                Agenda Kegiatan
+              </h2>
+              <p className="text-sm text-slate-600 sm:text-base">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {agenda.map((item) => (
+                <div
+                  key={item.title}
+                  className="flex h-full flex-col gap-3 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6"
+                >
+                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">
+                    {item.month}
+                  </p>
+                  <p className="text-lg font-semibold text-slate-900">
+                    {item.title}
+                  </p>
+                  <p className="text-sm text-slate-600">{item.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="kontak" className="bg-slate-900">
+          <div className={`${containerClass} flex flex-col gap-8 py-16 text-white sm:gap-10 sm:py-20 md:flex-row md:items-center md:justify-between`}>
+            <div className="space-y-3 text-center md:max-w-lg md:text-left">
+              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-300">
+                Hubungi Kami
+              </p>
+              <h2 className="text-balance text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+                Informasi Kontak DIPORANI
+              </h2>
+              <p className="text-sm leading-relaxed text-slate-200 sm:text-base">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              </p>
+            </div>
+            <div className="flex flex-col gap-3 text-center text-sm text-slate-200 md:text-left">
+              <p className="font-semibold text-white">Email resmi</p>
+              <p>loremipsum@example.com</p>
+              <p className="font-semibold text-white">Instagram</p>
+              <p>@loremipsum</p>
+              <p className="font-semibold text-white">Alamat Sekretariat</p>
+              <p>Lorem ipsum dolor sit amet, Bantul</p>
+            </div>
+          </div>
+        </section>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+
+      <footer className="border-t border-slate-200 bg-white">
+        <div className={`${containerClass} flex flex-col gap-3 py-8 text-center text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between`}>
+          <p>&copy; {new Date().getFullYear()} DIPORANI Pramuka - SMA Negeri 1 Kasihan.</p>
+          <p>Pramuka DIPORANI siap berkarya untuk sekolah dan masyarakat.</p>
+        </div>
       </footer>
     </div>
   );
