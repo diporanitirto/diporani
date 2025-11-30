@@ -4,8 +4,10 @@ import { useState, type SVGProps } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { materiList } from "@/data/materi";
-import { dokumentasiList } from "@/data/dokumentasi";
+import StrukturSection from "@/components/StrukturSection";
+import MateriSection from "@/components/MateriSection";
+import DokumentasiSection from "@/components/DokumentasiSection";
+import AgendaSection from "@/components/AgendaSection";
 
 const navLinks = [
   { label: "Profil", href: "#profil" },
@@ -39,64 +41,13 @@ const pembina: Pembina[] = [
   },
 ];
 
-type StrukturMember = {
-  role?: string;
-  name: string;
-  motto: string;
-  imageSrc?: string | null;
-  instagram?: string;
-};
-
-const bphMembers: StrukturMember[] = [
-  { role: "Pradana 1", name: "Nama Pradana 1", motto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", instagram: "@loremipsum", imageSrc: null },
-  { role: "Pradana 2", name: "Nama Pradana 2", motto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", instagram: "@loremipsum", imageSrc: null },
-  { role: "Judat 1", name: "Nama Judat 1", motto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", instagram: "@loremipsum", imageSrc: null },
-  { role: "Judat 2", name: "Nama Judat 2", motto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", instagram: "@loremipsum", imageSrc: null },
-  { role: "Kerani 1", name: "Nama Kerani 1", motto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", instagram: "@loremipsum", imageSrc: null },
-  { role: "Kerani 2", name: "Nama Kerani 2", motto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", instagram: "@loremipsum", imageSrc: null },
-  { role: "Hartoko 1", name: "Nama Hartoko 1", motto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", instagram: "@loremipsum", imageSrc: null },
-  { role: "Hartoko 2", name: "Nama Hartoko 2", motto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", instagram: "@loremipsum", imageSrc: null },
-];
-
-const anggotaDewan: StrukturMember[] = Array.from({ length: 25 }).map((_, index) => {
-  const number = index + 1;
-  return {
-    name: `Nama Anggota ${number}`,
-    motto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    instagram: "@loremipsum",
-    imageSrc: null,
-  };
-});
-
-const agenda = [
-  {
-    month: "Lorem",
-    title: "Agenda Satu",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  },
-  {
-    month: "Ipsum",
-    title: "Agenda Dua",
-    description: "Sed do eiusmod tempor incididunt ut labore et dolore magna.",
-  },
-  {
-    month: "Dolor",
-    title: "Agenda Tiga",
-    description: "Ut enim ad minim veniam, quis nostrud exercitation ullamco.",
-  },
-];
-
 const stats = [
   { label: "Lorem Ipsum", value: "000+" },
   { label: "Dolor Sit", value: "000" },
   { label: "Amet", value: "000" },
 ];
 
-const dokumentasiHighlights = dokumentasiList.slice(0, 6);
-
-const containerClass = "w-full mx-auto px-4 sm:px-6 lg:px-12 xl:px-16";
-
-const highlightedMateri = materiList.slice(0, 4);
+const containerClass = "w-full max-w-full px-4 sm:px-6 lg:px-12 xl:px-16 box-border";
 
 const getInitials = (name: string) =>
   name
@@ -138,7 +89,7 @@ export default function Home() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-white text-slate-900">
+    <div className="min-h-screen bg-white text-slate-900 overflow-x-clip w-screen max-w-full">
       <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/80 backdrop-blur">
         <div className={`${containerClass} flex items-center justify-between gap-4 py-4 sm:gap-6`}>
           <div className="flex items-center gap-3">
@@ -208,8 +159,8 @@ export default function Home() {
 
       <main>
         <section className="border-b border-slate-200 bg-slate-50/60">
-          <div className={`${containerClass} grid grid-cols-1 gap-10 py-12 sm:gap-12 sm:py-16 md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] md:items-center`}>
-            <div className="space-y-6 sm:space-y-8">
+          <div className={`${containerClass} grid grid-cols-1 gap-10 py-12 sm:gap-12 sm:py-16 lg:grid-cols-2 lg:items-center`}>
+            <div className="space-y-6 sm:space-y-8 min-w-0">
               <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-slate-500 sm:px-4 sm:text-xs">
                 Profil DIPORANI
               </span>
@@ -351,227 +302,13 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="struktur" className="border-b border-slate-200">
-          <div className={`${containerClass} space-y-8 py-16 sm:py-20`}>
-            <div className="space-y-3 text-center">
-              <h2 className="text-balance text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
-                Struktur Keanggotaan
-              </h2>
-              <p className="text-sm text-slate-600 sm:text-base">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore.
-              </p>
-            </div>
-            <div className="space-y-10 sm:space-y-12">
-              <div className="space-y-6">
-                <p className="text-center text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
-                  Badan Pengurus Harian (BPH)
-                </p>
-                <div className="grid grid-cols-2 gap-3 sm:gap-4 max-[420px]:grid-cols-1">
-                  {bphMembers.map((member) => (
-                    <div
-                      key={member.role}
-                      className="flex h-full flex-col gap-3 rounded-3xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5"
-                    >
-                      <div className="flex items-center gap-3 sm:gap-4">
-                        <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-full border border-slate-200 bg-slate-50 sm:h-20 sm:w-20">
-                          {member.imageSrc ? (
-                            <Image
-                              src={member.imageSrc}
-                              alt={`Foto ${member.name}`}
-                              width={80}
-                              height={80}
-                              className="h-full w-full object-cover"
-                            />
-                          ) : (
-                            <span className="text-base font-semibold text-slate-500 sm:text-lg">
-                              {getInitials(member.name) || member.role?.[0] || "?"}
-                            </span>
-                          )}
-                        </div>
-                        <div className="flex flex-1 flex-col justify-center gap-2">
-                          <div className="flex items-start gap-2">
-                            <p className="text-lg font-semibold text-slate-900 sm:text-xl">{member.name}</p>
-                          </div>
-                          {member.role ? (
-                            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500 sm:text-base">
-                              {member.role}
-                            </p>
-                          ) : null}
-                        </div>
-                        <div className="shrink-0 self-start">
-                          <InstagramTag handle={member.instagram} />
-                        </div>
-                      </div>
-                      <p className="text-sm text-slate-600 sm:text-base">{member.motto}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="space-y-6">
-                <p className="text-center text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
-                  Anggota Dewan Ambalan
-                </p>
-                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 max-[420px]:grid-cols-1">
-                  {anggotaDewan.map((member) => (
-                    <div
-                      key={member.name}
-                      className="flex h-full flex-col gap-3 rounded-3xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5"
-                    >
-                      <div className="flex items-center gap-3 sm:gap-4">
-                        <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-full border border-slate-200 bg-slate-50 sm:h-20 sm:w-20">
-                          {member.imageSrc ? (
-                            <Image
-                              src={member.imageSrc}
-                              alt={`Foto ${member.name}`}
-                              width={80}
-                              height={80}
-                              className="h-full w-full object-cover"
-                            />
-                          ) : (
-                            <span className="text-sm font-semibold text-slate-500 sm:text-base">
-                              {getInitials(member.name) || member.role?.[0] || "?"}
-                            </span>
-                          )}
-                        </div>
-                        <div className="flex flex-1 items-center gap-2">
-                          <p className="text-lg font-semibold text-slate-900 sm:text-xl">{member.name}</p>
-                        </div>
-                        <div className="shrink-0 self-start">
-                          <InstagramTag handle={member.instagram} />
-                        </div>
-                      </div>
-                      <p className="text-sm text-slate-600 sm:text-base">{member.motto}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <StrukturSection />
 
-        <section id="materi" className="border-b border-slate-200 bg-slate-50/60">
-          <div className={`${containerClass} space-y-8 py-16 sm:py-20`}>
-            <div className="space-y-3 text-center">
-              <h2 className="text-balance text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
-                Materi Latihan DIPORANI
-              </h2>
-              <p className="text-sm text-slate-600 sm:text-base">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore.
-              </p>
-            </div>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              {highlightedMateri.map((item) => (
-                <Link
-                  key={item.slug}
-                  href={`/materi/${item.slug}`}
-                  className="group flex h-full flex-col gap-3 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md sm:p-6"
-                >
-                  <p className="text-xs font-semibold uppercase tracking-[0.25em] text-slate-500">
-                    {item.title}
-                  </p>
-                  <p className="text-sm leading-relaxed text-slate-600">
-                    {item.shortDescription}
-                  </p>
-                  <span className="mt-auto text-sm font-semibold text-slate-900 group-hover:text-slate-600">
-                    Baca selengkapnya -&gt;
-                  </span>
-                </Link>
-              ))}
-            </div>
-            <div className="text-center">
-              <Link
-                href="/materi"
-                className="inline-flex items-center gap-2 rounded-full border border-slate-200 px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-900 hover:text-slate-900"
-              >
-                Lihat semua materi
-              </Link>
-            </div>
-          </div>
-        </section>
+        <MateriSection />
 
-        <section id="dokumentasi" className="border-b border-slate-200">
-          <div className={`${containerClass} space-y-8 py-16 sm:py-20`}>
-            <div className="space-y-3 text-center">
-              <h2 className="text-balance text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
-                Dokumentasi Kegiatan
-              </h2>
-              <p className="text-sm text-slate-600 sm:text-base">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore.
-              </p>
-            </div>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {dokumentasiHighlights.map((item) => (
-                <Link
-                  key={item.slug}
-                  href={`/dokumentasi/${item.slug}`}
-                  className="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md"
-                >
-                  <div className="relative overflow-hidden bg-slate-900 px-6 py-10 text-white">
-                    <span className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-300">
-                      Dokumentasi
-                    </span>
-                    <p className="mt-4 text-lg font-semibold text-white sm:text-xl">
-                      {item.title}
-                    </p>
-                    <p className="mt-2 text-sm text-slate-200">
-                      {item.date}
-                    </p>
-                    <div className="pointer-events-none absolute inset-0 opacity-20">
-                      <div className="absolute -top-16 right-0 h-40 w-40 rounded-full bg-white/20 blur-3xl" />
-                      <div className="absolute bottom-0 left-0 h-32 w-32 -translate-x-1/3 translate-y-1/3 rounded-full bg-white/10 blur-2xl" />
-                    </div>
-                  </div>
-                  <div className="flex flex-1 flex-col gap-3 px-6 py-5">
-                    <p className="text-sm leading-relaxed text-slate-600">
-                      {item.summary}
-                    </p>
-                    <div className="mt-auto flex items-center justify-between text-xs font-semibold uppercase tracking-[0.3em] text-slate-400 transition group-hover:text-slate-600">
-                      <span>Galeri Kegiatan</span>
-                      <span>Detail dokumentasi →</span>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-            <div className="text-center">
-              <Link
-                href="/dokumentasi"
-                className="inline-flex items-center gap-2 rounded-full border border-slate-200 px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-900 hover:text-slate-900"
-              >
-                Lihat semua dokumentasi
-              </Link>
-            </div>
-          </div>
-        </section>
+        <DokumentasiSection />
 
-        <section id="agenda" className="border-b border-slate-200">
-          <div className={`${containerClass} space-y-8 py-16 sm:py-20`}>
-            <div className="space-y-3 text-center">
-              <h2 className="text-balance text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
-                Agenda Kegiatan
-              </h2>
-              <p className="text-sm text-slate-600 sm:text-base">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore.
-              </p>
-            </div>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {agenda.map((item) => (
-                <div
-                  key={item.title}
-                  className="flex h-full flex-col gap-3 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6"
-                >
-                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">
-                    {item.month}
-                  </p>
-                  <p className="text-lg font-semibold text-slate-900">
-                    {item.title}
-                  </p>
-                  <p className="text-sm text-slate-600">{item.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <AgendaSection />
 
         <section id="kontak" className="bg-slate-900">
           <div className={`${containerClass} flex flex-col gap-8 py-16 text-white sm:gap-10 sm:py-20 md:flex-row md:items-center md:justify-between`}>
@@ -600,7 +337,7 @@ export default function Home() {
 
       <footer className="border-t border-slate-200 bg-white">
         <div className={`${containerClass} flex flex-col gap-3 py-8 text-center text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between`}>
-          <p>&copy; {new Date().getFullYear()} DIPORANI Pramuka - SMA Negeri 1 Kasihan.</p>
+          <p>&copy; {new Date().getFullYear()} DIPORANI - SMA Negeri 1 Kasihan.</p>
           <p>Pramuka DIPORANI siap berkarya untuk sekolah dan masyarakat.</p>
         </div>
       </footer>
