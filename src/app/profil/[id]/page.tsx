@@ -154,8 +154,8 @@ export default function ProfilePage() {
             {/* Info */}
             <div className="flex-1 text-center sm:text-left">
               {/* Name & Instagram */}
-              <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-                <h1 className="text-xl font-normal text-slate-900">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                <h1 className="text-lg sm:text-xl font-normal text-slate-900">
                   {profile.full_name || 'Tanpa Nama'}
                 </h1>
                 {profile.instagram && (
@@ -163,7 +163,7 @@ export default function ProfilePage() {
                     href={`https://instagram.com/${profile.instagram.replace('@', '')}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-slate-100 px-4 py-1.5 text-sm font-semibold text-slate-800 transition hover:bg-slate-200"
+                    className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-slate-100 px-3 py-1 sm:px-4 sm:py-1.5 text-xs sm:text-sm font-semibold text-slate-800 transition hover:bg-slate-200 w-fit mx-auto sm:mx-0"
                   >
                     <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
@@ -261,24 +261,24 @@ export default function ProfilePage() {
       {/* Post Modal */}
       {selectedPost && (
         <div 
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-2 sm:p-4"
           onClick={() => setSelectedPost(null)}
         >
           <button
             onClick={() => setSelectedPost(null)}
-            className="absolute right-4 top-4 text-white/80 hover:text-white"
+            className="absolute right-2 top-2 sm:right-4 sm:top-4 text-white/80 hover:text-white z-10"
           >
-            <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg className="h-6 w-6 sm:h-7 sm:w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
           
           <div 
-            className="flex max-h-[90vh] w-full max-w-4xl overflow-hidden rounded-sm bg-white"
+            className="flex max-h-[90vh] w-full max-w-4xl overflow-hidden rounded-lg sm:rounded-sm bg-white flex-col sm:flex-row"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Image */}
-            <div className="relative aspect-square w-[60%] flex-shrink-0 bg-black">
+            <div className="relative aspect-square w-full sm:w-[60%] flex-shrink-0 bg-black max-h-[50vh] sm:max-h-none">
               <Image
                 src={selectedPost.image_url}
                 alt=""
@@ -289,25 +289,25 @@ export default function ProfilePage() {
             </div>
             
             {/* Info */}
-            <div className="flex w-[40%] flex-col">
+            <div className="flex w-full sm:w-[40%] flex-col max-h-[40vh] sm:max-h-none">
               {/* Header */}
-              <div className="flex items-center gap-3 border-b border-slate-100 p-4">
+              <div className="flex items-center gap-3 border-b border-slate-100 p-3 sm:p-4">
                 {profile.avatar_url ? (
-                  <div className="relative h-8 w-8 rounded-full overflow-hidden">
+                  <div className="relative h-7 w-7 sm:h-8 sm:w-8 rounded-full overflow-hidden">
                     <Image src={profile.avatar_url} alt="" fill className="object-cover" unoptimized />
                   </div>
                 ) : (
-                  <div className="h-8 w-8 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center text-xs font-semibold text-white">
+                  <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center text-xs font-semibold text-white">
                     {getInitials(profile.full_name)}
                   </div>
                 )}
-                <span className="text-sm font-semibold text-slate-900">{profile.full_name}</span>
+                <span className="text-xs sm:text-sm font-semibold text-slate-900">{profile.full_name}</span>
               </div>
               
               {/* Caption */}
-              <div className="flex-1 overflow-auto p-4">
+              <div className="flex-1 overflow-auto p-3 sm:p-4">
                 {selectedPost.caption && (
-                  <p className="text-sm text-slate-800">
+                  <p className="text-xs sm:text-sm text-slate-800">
                     <span className="font-semibold">{profile.full_name}</span>{' '}
                     {selectedPost.caption}
                   </p>
@@ -315,8 +315,8 @@ export default function ProfilePage() {
               </div>
               
               {/* Date */}
-              <div className="border-t border-slate-100 px-4 py-3">
-                <p className="text-[10px] text-slate-400 uppercase">
+              <div className="border-t border-slate-100 px-3 py-2 sm:px-4 sm:py-3">
+                <p className="text-[9px] sm:text-[10px] text-slate-400 uppercase">
                   {new Date(selectedPost.created_at).toLocaleDateString('id-ID', {
                     day: 'numeric',
                     month: 'long',

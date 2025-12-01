@@ -71,9 +71,9 @@ const InstagramTag = ({ handle }: { handle?: string | null }) => {
   if (!handle) return null;
 
   return (
-    <div className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-600">
-      <InstagramIcon className="h-3.5 w-3.5" />
-      <span>{handle}</span>
+    <div className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white px-2 py-0.5 text-[10px] font-semibold text-slate-600 sm:px-3 sm:py-1 sm:text-xs">
+      <InstagramIcon className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+      <span className="truncate max-w-[80px] sm:max-w-none">{handle}</span>
     </div>
   );
 };

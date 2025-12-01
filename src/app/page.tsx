@@ -78,9 +78,9 @@ const InstagramTag = ({ handle }: { handle?: string }) => {
   if (!handle) return null;
 
   return (
-    <div className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-600">
-      <InstagramIcon className="h-3.5 w-3.5" />
-      <span>{handle}</span>
+    <div className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white px-2 py-0.5 text-[10px] font-semibold text-slate-600 sm:px-3 sm:py-1 sm:text-xs">
+      <InstagramIcon className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+      <span className="truncate max-w-[100px] sm:max-w-none">{handle}</span>
     </div>
   );
 };
@@ -92,20 +92,21 @@ export default function Home() {
     <div className="min-h-screen bg-white text-slate-900 overflow-x-clip w-screen max-w-full">
       <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/80 backdrop-blur">
         <div className={`${containerClass} flex items-center justify-between gap-4 py-4 sm:gap-6`}>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
             <Image
               src="/assets/logo-diporani.png"
               alt="Logo DIPORANI"
               width={48}
               height={48}
-              className="h-12 w-12 rounded-full border border-slate-200 object-contain p-1"
+              className="h-9 w-9 sm:h-12 sm:w-12 rounded-full border border-slate-200 object-contain p-0.5 sm:p-1 flex-shrink-0"
             />
-            <div>
-              <p className="text-xs uppercase tracking-[0.2em] text-slate-500">
+            <div className="min-w-0">
+              <p className="hidden sm:block text-xs uppercase tracking-[0.2em] text-slate-500">
                 Pramuka Penegak
               </p>
-              <p className="text-base font-semibold text-slate-900">
-                Diporani SMA Negeri 1 Kasihan
+              <p className="text-sm sm:text-base font-semibold text-slate-900 truncate">
+                <span className="sm:hidden">DIPORANI</span>
+                <span className="hidden sm:inline">Diporani SMA Negeri 1 Kasihan</span>
               </p>
             </div>
           </div>
@@ -164,7 +165,7 @@ export default function Home() {
               <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-slate-500 sm:px-4 sm:text-xs">
                 Profil DIPORANI
               </span>
-              <h1 className="text-balance text-2xl font-bold leading-snug text-slate-900 sm:text-4xl lg:text-5xl">
+              <h1 className="text-balance text-xl font-bold leading-snug text-slate-900 sm:text-4xl lg:text-5xl">
                 Diporani SMA Negeri 1 Kasihan
               </h1>
               <p className="max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg">
@@ -188,21 +189,21 @@ export default function Home() {
                 </Link>
               </div>
             </div>
-            <div className="grid gap-5 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:gap-6 sm:p-8">
+            <div className="grid gap-4 rounded-2xl sm:rounded-3xl border border-slate-200 bg-white p-4 sm:p-8 shadow-sm sm:gap-6">
               <div className="flex items-center justify-between">
                 <Image
                   src="/assets/logo-diporani.png"
                   alt="Logo DIPORANI"
                   width={96}
                   height={96}
-                  className="h-24 w-24 rounded-full border border-slate-200 object-contain p-2"
+                  className="h-16 w-16 sm:h-24 sm:w-24 rounded-full border border-slate-200 object-contain p-1 sm:p-2"
                 />
                 <Image
                   src="/assets/logo-sma.png"
                   alt="Logo SMA Negeri 1 Kasihan"
                   width={80}
                   height={80}
-                  className="h-20 w-20 rounded-full border border-slate-200 object-contain p-2"
+                  className="h-14 w-14 sm:h-20 sm:w-20 rounded-full border border-slate-200 object-contain p-1 sm:p-2"
                 />
               </div>
               <div className="grid gap-3 rounded-2xl border border-slate-100 bg-slate-50 px-4 py-5">
@@ -216,14 +217,14 @@ export default function Home() {
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor.
                 </p>
               </div>
-              <div className="grid grid-cols-3 gap-2 text-center sm:gap-3">
+              <div className="grid grid-cols-3 gap-1.5 text-center sm:gap-3">
                 {stats.map((item) => (
                   <div
                     key={item.label}
-                    className="rounded-2xl border border-slate-200 bg-white px-3 py-3 text-center shadow-sm sm:px-4 sm:py-5"
+                    className="rounded-xl sm:rounded-2xl border border-slate-200 bg-white px-2 py-2 text-center shadow-sm sm:px-4 sm:py-5"
                   >
-                    <p className="text-xl font-semibold text-slate-900 sm:text-2xl">{item.value}</p>
-                    <p className="text-[0.6rem] uppercase tracking-[0.25em] text-slate-500 sm:text-xs">
+                    <p className="text-base font-semibold text-slate-900 sm:text-2xl">{item.value}</p>
+                    <p className="text-[0.5rem] uppercase tracking-[0.15em] text-slate-500 sm:text-xs sm:tracking-[0.25em]">
                       {item.label}
                     </p>
                   </div>
@@ -279,23 +280,21 @@ export default function Home() {
               {pembina.map((person) => (
                 <div
                   key={person.name}
-                  className="flex h-full flex-col gap-3 rounded-3xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5"
+                  className="flex h-full flex-col gap-2 sm:gap-3 rounded-2xl sm:rounded-3xl border border-slate-200 bg-white p-3 sm:p-5 shadow-sm"
                 >
-                  <div className="flex items-start gap-3">
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-slate-900 text-base font-semibold text-white">
+                  <div className="flex items-start gap-2 sm:gap-3">
+                    <div className="flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-slate-900 text-sm sm:text-base font-semibold text-white">
                       {getInitials(person.name)}
                     </div>
-                    <div className="flex-1 space-y-1">
-                      <div className="flex items-start justify-between gap-2">
-                        <p className="text-sm font-semibold text-slate-900 sm:text-base">{person.name}</p>
-                        <div className="shrink-0">
-                          <InstagramTag handle={person.instagram} />
-                        </div>
-                      </div>
-                      <p className="text-xs uppercase tracking-[0.2em] text-slate-500 sm:text-sm">{person.role}</p>
+                    <div className="flex-1 min-w-0 space-y-0.5 sm:space-y-1">
+                      <p className="text-sm font-semibold text-slate-900 truncate sm:text-base">{person.name}</p>
+                      <p className="text-[10px] uppercase tracking-[0.15em] text-slate-500 sm:text-sm sm:tracking-[0.2em]">{person.role}</p>
                     </div>
                   </div>
-                  <p className="text-sm text-slate-600 sm:text-base">{person.note}</p>
+                  <div className="flex">
+                    <InstagramTag handle={person.instagram} />
+                  </div>
+                  <p className="text-xs text-slate-600 sm:text-base line-clamp-2">{person.note}</p>
                 </div>
               ))}
             </div>
