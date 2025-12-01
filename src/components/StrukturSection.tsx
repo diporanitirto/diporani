@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 
 type DashboardRole = 'admin' | 'bph' | 'materi' | 'media' | 'anggota';
@@ -78,7 +79,10 @@ const InstagramTag = ({ handle }: { handle?: string | null }) => {
 };
 
 const MemberCard = ({ member, showRole = false }: { member: Member; showRole?: boolean }) => (
-  <div className="flex h-full min-w-0 flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-3 shadow-sm sm:rounded-3xl sm:p-4">
+  <Link 
+    href={`/profil/${member.id}`}
+    className="flex h-full min-w-0 flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-3 shadow-sm transition hover:border-emerald-300 hover:shadow-md sm:rounded-3xl sm:p-4"
+  >
     <div className="flex items-center gap-2 sm:gap-3">
       <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full border border-slate-200 bg-slate-50 sm:h-16 sm:w-16">
         {member.avatar_url ? (
@@ -115,7 +119,7 @@ const MemberCard = ({ member, showRole = false }: { member: Member; showRole?: b
     {member.motto && (
       <p className="text-xs text-slate-600 line-clamp-2 sm:text-sm">{member.motto}</p>
     )}
-  </div>
+  </Link>
 );
 
 const LoadingSkeleton = () => (
